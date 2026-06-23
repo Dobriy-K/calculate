@@ -47,6 +47,31 @@ body {
   background-color: burlywood;
 }
 
-@media screen {
-  
+@media screen and (max-width: 480px) {
+  body {
+    overflow-y: auto; /* Разрешаем вертикальную прокрутку, если экран маленький */
+    justify-content: flex-start; /* Прижимаем к верху, чтобы клавиатура не перекрывала всё */
+    padding-top: 40px;
+  }
+
+  .checkCont {
+    flex-direction: column; /* Радиокнопки встают друг под друга */
+    width: 100%;
+  }
+
+  .cont {
+    flex-direction: column; /* Все инпуты встают строгой колонкой */
+  }
+
+  .inp {
+    flex: 1 1 100%; /* Каждый инпут занимает 100% ширины экрана */
+    width: 100%;
+    height: 48px; /* Идеальный размер для нажатия пальцем */
+    font-size: 16px; /* Защита от авто-зума экрана на iPhone */
+  }
+
+  #select {
+    height: 48px;
+    font-size: 16px;
+  }
 }
