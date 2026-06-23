@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script src="main.js" defer></script> -->
+    <script src="AiMain.js" defer></script>
+  </head>
+  <body>
+    <select name="view" id="select">
+      <option value="" selected>--Вид начисления--</option>
+      <option value="1">НДостиж (СЗВЗ)</option>
+      <option value="1">ПНС (ежемесячная)</option>
+      <option value="1">НОУС</option>
+      <option value="2">Зграничный коэффициент</option>
+      <option value="2">ПНВЛ (за выслугу)</option>
+      <option value="1">ЕН за КК</option>
+      <option value="1">НОУС за Абхазию</option>
+      <option value="2">Месячная премия</option>
+    </select>
+    <div class="checkCont">
+      <p>Выберите должность:</p>
+      <label>
+        <input
+          type="radio"
+          name="secRadio"
+          value="tehnik"
+          class="dolzhnost"
+        />Техник ***</label
+      >
+      <label>
+        <input type="radio" name="secRadio" value="radist" class="dolzhnost" />
+        Радист **</label
+      >
+      <label>
+        <input type="radio" name="secRadio" value="radist+" class="dolzhnost" />
+        Радист ***</label
+      >
+    </div>
+
+    <div class="cont">
+      <input
+        type="number"
+        placeholder="Звание"
+        class="inp"
+        id="zvan"
+        value=""
+      />
+      <input
+        type="number"
+        placeholder="Должность"
+        class="inp"
+        id="dol"
+        value=""
+      />
+      <input
+        type="number"
+        placeholder="Сумма начисления"
+        class="inp"
+        id="article"
+      />
+      <input type="number" placeholder="%" class="inp" id="proc" />
+    </div>
+  </body>
+</html>
