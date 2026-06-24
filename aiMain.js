@@ -10,8 +10,8 @@ const view = document.querySelectorAll("#select");
 // База данных для автоматического заполнения окладов
 const baseData = {
   tehnik: { zvan: 12181, dol: 27224 },
-  radist: { zvan: 11000, dol: 25000 },
-  "radist+": { zvan: 10000, dol: 24000 }
+  radist: { zvan: 11000, dol: 25791 },
+  "radist+": { zvan: 12181, dol: 25791 }
 };
 
 // Главная функция управления формой и расчета
@@ -39,7 +39,7 @@ function calculate() {
     dol.disabled = false;
     article.disabled = false;
 
-    zvan.placeholder = "Звание";
+    zvan.placeholder = "Оклад по званию";
     
     // Принудительно очищаем автоподстановку окладов
     zvan.value = "";
@@ -59,7 +59,7 @@ function calculate() {
       zvan.placeholder = "Не требуется";
     } else {
       zvan.disabled = false;
-      zvan.placeholder = "Звание";
+      zvan.placeholder = "Оклад по званию";
     }
 
     // Автоподстановка окладов на основе выбранной должности
@@ -88,9 +88,8 @@ function calculate() {
     const base = zvanVal + dolVal;
     if (base > 0) res = articleVal / (base / 100);
   }
-
   // Выводим округленный до двух знаков результат
-  proc.value = isFinite(res) && res > 0 ? Number(res.toFixed(2)) : 0;
+  proc.value = isFinite(res) && res > 0 ? Number(res.toFixed(2)) : "%";
 }
 
 // 2. Объединяем коллекции элементов для навешивания общего события
@@ -109,3 +108,10 @@ if (dol) dol.addEventListener("input", calculate);
 
 // 4. Первичный запуск функции для настройки полей при загрузке
 calculate();
+const resetBtn = document.querySelector("#resetBtn");
+
+if (resetBtn) {
+  resetBtn.addEventListener("click", () => {
+    location.reload(); // Перезагружает страницу при клике
+  });
+}
