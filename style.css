@@ -4,6 +4,7 @@
   font-size: large;
 }
 body {
+  position: relative;
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -13,6 +14,20 @@ body {
   background-color: bisque;
   font-family: "Calibri", sans-serif;
 }
+
+/* Создаем виртуальный слой строго под картинку */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("fil.png") center / cover no-repeat;
+  opacity: 0.05; /* Задаем любую прозрачность картинке (например, 30%) */
+  z-index: -1; /* Уводим картинку на самый задний план, под текст */
+}
+
 .cont {
   display: flex;
   align-items: center;
@@ -57,6 +72,7 @@ body {
   border: 1px solid;
   border-radius: 5px;
   background-color: burlywood;
+  padding: 5px 30px;
 }
 .red_line {
   display: block;
@@ -77,9 +93,24 @@ body {
 #resetBtn {
   width: 30px;
   height: 30px;
-  background: bisque url("images.png") center / cover no-repeat;
-  border: 1px solid brown;
-  border-radius: 5px;
+  background: bisque url("images2.png") center / cover no-repeat;
+  /* border: 1px solid brown; */
+  border-radius: 50%;
+  box-shadow: 0 0 10px 5px maroon;
+  animation: resBtn-shadow 3s infinite ease-in-out;
+}
+@keyframes resBtn-shadow {
+  0% {
+    box-shadow: 0 0 0 0 maroon;
+  }
+  50% {
+    /* Тень плавно увеличивается и становится более размытой */
+    box-shadow: 0 0 5px 2px maroon;
+  }
+  100% {
+    /* Возврат к исходной точке для плавного повтора */
+    box-shadow: 0 0 0 0 maroon;
+  }
 }
 @media screen and (max-width: 480px) {
   body {
