@@ -32,7 +32,18 @@ body {
   padding: 0;
 }
 .checkCont {
-  margin-bottom: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.checkCont > :first-child {
+  display: block;
+  width: 100%;
+}
+
+.checkCont > label {
+  flex: 1 1 calc(33.33% - 10px);
 }
 .checkCont > * {
   border: 1px solid;
@@ -104,7 +115,7 @@ body {
     height: 48px;
     font-size: 16px;
   }
-  #resetBtn{
+  #resetBtn {
     width: 50px;
     height: 50px;
   }

@@ -7,11 +7,21 @@ const proc = document.querySelector("#proc");
 const dolzhnost = document.querySelectorAll(".dolzhnost");
 const view = document.querySelectorAll("#select");
 
+const numericInputs = document.querySelectorAll("#zvan, #dol, #article");
+const activeView = document.querySelector("#select");
+
+numericInputs.forEach((input) => {
+  input.addEventListener("input", (ev) => {
+    ev.target.value = ev.target.value.replace(/[^\d]/g, "");
+  });
+});
 // База данных для автоматического заполнения окладов
 const baseData = {
   tehnik: { zvan: 12181, dol: 27224 },
-  radist: { zvan: 11000, dol: 25791 },
-  "radist+": { zvan: 12181, dol: 25791 }
+  radist: { zvan: 1, dol: 25791 },
+  "radist+": { zvan: 12181, dol: 25791 },
+  voditel: { zvan: 1, dol: 1 },
+  "voditel+": { zvan: 1, dol: 1 },
 };
 
 // Главная функция управления формой и расчета
@@ -19,7 +29,6 @@ function calculate() {
   if (!zvan || !dol || !article || !proc) return;
 
   // Получаем выбранный вид начисления (0, 1 или 2)
-  const activeView = document.querySelector("#select");
   const key = activeView ? +activeView.value : 0;
 
   // Ищем, какая должность сейчас выбрана радиокнопкой
@@ -29,26 +38,27 @@ function calculate() {
   // СЦЕНАРИЙ 0: Ничего не выбрано в верхнем списке (value="0")
   if (key === 0) {
     // Блокируем и сбрасываем радиокнопки должностей
-    dolzhnost.forEach(radio => {
+    dolzhnost.forEach((radio) => {
       radio.disabled = true;
-      radio.checked = false; 
+      radio.checked = false;
     });
 
-    // Оставляем инпуты активными для полностью ручного ввода (как в прошлых шагах)
+    // Оставляем инпуты активными для полностью ручного ввода
     zvan.disabled = false;
     dol.disabled = false;
     article.disabled = false;
 
-    zvan.placeholder = "Оклад по званию";
-    
+    // zvan.placeholder = "Оклад по званию";
+
     // Принудительно очищаем автоподстановку окладов
-    zvan.value = "";
-    dol.value = "";
-  } 
+    // zvan.value = "";
+    // dol.value = "";
+    // article.value = "";
+  }
   // СЦЕНАРИЙ 1 ИЛИ 2: Конкретный вид начисления выбран
   else {
     // Активируем радиокнопки для выбора должности
-    dolzhnost.forEach(radio => radio.disabled = false);
+    dolzhnost.forEach((radio) => (radio.disabled = false));
     dol.disabled = false;
     article.disabled = false;
 
@@ -65,7 +75,7 @@ function calculate() {
     // Автоподстановка окладов на основе выбранной должности
     if (currentJob && baseData[currentJob]) {
       dol.value = baseData[currentJob].dol;
-      
+
       // Подставляем звание только для группы 1
       if (key === 1) {
         zvan.value = baseData[currentJob].zvan;
@@ -79,7 +89,7 @@ function calculate() {
   const articleVal = +article.value || 0;
 
   let res = 0;
-  
+
   if (key === 2) {
     // Формула только для Оклада (группа 2)
     if (dolVal > 0) res = articleVal / (dolVal / 100);
@@ -89,7 +99,7 @@ function calculate() {
     if (base > 0) res = articleVal / (base / 100);
   }
   // Выводим округленный до двух знаков результат
-  proc.value = isFinite(res) && res > 0 ? Number(res.toFixed(2)) : "%";
+  proc.value = isFinite(res) && res > 0 ? Number(res.toFixed(2)) : "";
 }
 
 // 2. Объединяем коллекции элементов для навешивания общего события
@@ -115,3 +125,9 @@ if (resetBtn) {
     location.reload(); // Перезагружает страницу при клике
   });
 }
+function clearInp() {
+  activeView.addEventListener("change", () => {
+    if (activeView.value == 0) zvan.value = dol.value = "";
+  });
+}
+clearInp();
